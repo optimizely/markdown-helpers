@@ -1,0 +1,6 @@
+doc_directory: './docs'
+output_file: 'README.md'
+erb_path: 'README.md.erb'
+base_header: "###"
+ignore:
+  - 'images'

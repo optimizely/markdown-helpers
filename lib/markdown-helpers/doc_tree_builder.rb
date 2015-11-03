@@ -69,9 +69,7 @@ class DocBuilder
     indent = '  ' * (level)
     line = File.open(path, &:readline)
     repo_path = path.sub(File.dirname(@config['output_file']), '.')
-    puts line
-    puts path
-    description = line.sub(%r{/^#* */}, '').chomp
+    description = line.sub(/^#* */, '').chomp
     @doc_index << "#{indent}- [#{description}](#{repo_path})\n"
   end
 
@@ -98,7 +96,7 @@ class DocBuilder
     elsif File.symlink?(path)
       return true
     # is it a non-md file?
-    elsif File.file?(path) && ! filename.include?('.md')
+    elsif File.file?(path) && !filename.include?('.md')
       return true
     end
     return false

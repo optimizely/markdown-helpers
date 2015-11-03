@@ -52,7 +52,7 @@ class LinkChecker
       @broken_links = []
       @config['replacements'] ||= {}
       @config['private_github'] ||= false
-      return unless @private
+      return unless @config['private_github']
       unless ENV['GITHUB_OAUTH_TOKEN']
         puts "Must specify 'GITHUB_OAUTH_TOKEN' env variable to use 'private_github' config option"
         exit(1)
@@ -98,7 +98,7 @@ class LinkChecker
     end
 
     def check_link(link, file)
-      if link.match(%r{/https:\/\/github.com/}) && @config['private']
+      if link.match(%r{https://github.com}) && @config['private_github']
         check_github_link(link)
       elsif link.match(/^http.*/)
         check_external_link(link)
@@ -110,8 +110,8 @@ class LinkChecker
     end
 
     def check_github_link(link)
-      repo = link.match(%r{/github\.com\/([^\/]*\/[^\/]*)\/.*/})[1]
-      path = link.match(%r{/github\.com\/.*\/.*\/blob\/[^\/]*\/(.*)/})[1]
+      repo = link.match(%r{github\.com/([^/]*/[^/]*)/.*})[1]
+      path = link.match(%r{github\.com/.*/.*/blob/[^/]*/(.*)})[1]
       begin
         @github_client.rate_limit
         @github_client.contents(repo, path: path)
