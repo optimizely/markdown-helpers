@@ -20,7 +20,7 @@ gem 'markdown-helpers'
 ```
 
 ## Usage
-There are two subcommands for the `markdownh` binary.
+There are two subcommands for the `markdownh` executable.
 - `generate_index` for generating a link index to your documentation files
 - `check_links` for finding broken links in your docs
 
