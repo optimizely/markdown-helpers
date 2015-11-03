@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+require 'markdown-helpers'
+require 'thor'
+
+# 'markdownh' CLI
+class MarkdownH < Thor
+  desc 'check_links CONFIG', 'check for broken links'
+  def check_links(config)
+    LinkChecker.new(config).check
+  end
+
+  desc 'generate_index CONFIG', 'generate a markdown link tree'
+  def generate_index(config)
+    doc_builder = DocBuilder.new(config)
+    doc_builder.generate_index
+    doc_builder.write
+  end
+end
+
+MarkdownH.start(ARGV)

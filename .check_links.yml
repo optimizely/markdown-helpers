@@ -1,0 +1,20 @@
+include:
+  - paths:
+      - './docs/*/**.md'
+      - 'README.md'
+    # get markdown links
+    pattern: !ruby/regexp '/\[[^\]]*\]\(([^\)]*)\)/'
+    # ignore links with <!--ignore--> in the line
+    exclude_comment: '<!--ignore-->'
+    # there are no private GitHub links in here
+    private_github: false
+  - paths:
+    - './README.md'
+    # get links that point to this repo
+    pattern: !ruby/regexp '/https:\/\/github\.com\/optimizely\/markdown-helpers\/blob\/master\/.*/'
+    # replace them with a relative path
+    replacements:
+      - match: !ruby/regexp '/https:\/\/github\.com\/optimizely\/backend-chef\/blob\/master/'
+        value: '.'
+    exclude_comment: '<!--ignore-->'
+
