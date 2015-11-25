@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "markdown-helpers"
-  s.version     = "0.1.0"
+  s.version     = "0.1.01"
   s.date        = "2015-10-30"
   s.summary     = "some helpers for working with github markdown"
   s.description = s.summary

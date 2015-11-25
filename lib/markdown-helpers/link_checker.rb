@@ -110,10 +110,10 @@ class LinkChecker
     end
 
     def check_github_link(link)
-      repo = link.match(%r{github\.com/([^/]*/[^/]*)/.*})[1]
-      path = link.match(%r{github\.com/.*/.*/blob/[^/]*/(.*)})[1]
+      repo = link.match(%r{github\.com/([^/]*/[^/]*)(/.*)?})[1]
+      path_match = link.match(%r{github\.com/.*/.*/blob/[^/]*/(.*)})
+      path = path_match ? path_match[1] : '/'
       begin
-        @github_client.rate_limit
         @github_client.contents(repo, path: path)
       rescue Octokit::NotFound
         return false
